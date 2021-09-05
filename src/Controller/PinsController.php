@@ -28,7 +28,7 @@ class PinsController extends AbstractController
 
         $repo=$em->getRepository(Pin::class);
 
-        $pins=$repo->findAll();
+        $pins=$repo->findBy([],['createdAt'=>'DESC']);
 
 
 
