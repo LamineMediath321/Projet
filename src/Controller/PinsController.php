@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use App\Form\PinType;
 
 
 
@@ -46,12 +47,7 @@ class PinsController extends AbstractController
         $pin= new Pin;
 
 
-        $form=$this->createFormBuilder($pin)
-            ->add('title',null,['attr' => ['autofocus' => true]])
-            ->add('description',null,['attr' => ['rows' =>10 , 'cols' =>60]])
-
-            ->getForm()
-        ;
+       $form=$this->createForm(PinType::class,$pin);
 
         $form->handleRequest($request);
 
@@ -61,6 +57,7 @@ class PinsController extends AbstractController
             $em->persist($pin);
 
             $em->flush();
+            $this->addFlash('success','Pin Successfully created');
 
             return $this->redirectToRoute('app_pins_show',['id' => $pin->getId()]);
         }
@@ -69,7 +66,6 @@ class PinsController extends AbstractController
                                 'monForm' => $form->createView()
                             ]);
     }
-
       /**
     *@Route("/pins/{id<[0-9]+>},name=app_pins_show")
     */
@@ -86,5 +82,33 @@ class PinsController extends AbstractController
 
         return $this->render('pins/show.html.twig',compact('pin'));
     }
+
+      /**
+    *@Route("/pins/{id<[0-9]+>}/edit", name="app_pins_edit",methods={"GET","POST","PUT"})
+    */
+    public function edit(Request $request,Pin $pin,EntityManagerInterface $em):Response
+    {
+        $form=$this->createForm(PinType::class,$pin,[
+            'method'=> 'PUT'
+            ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->flush();
+
+                        $this->addFlash('success','Pin Successfully updated');
+
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('pins/edit.html.twig',[
+                                'pin' => $pin,  
+                                'monForm' => $form->createView()
+                            ]);
+    }
+
 
 }
