@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Find all the best pins on earth' %}
+
+{% block body %}
+	 <h1>All Pins</h1>
+
+        <a href="{{path('app_pins_create')}}">Creer un Pin</a>
+
+        {% if pins|length > 0 %}
+            {% for pin in pins %}
+                <article>
+                    <h1><a href="{{ path('app_pins_show',{'id':pin.id}) }}">{{ pin.title }}</a></h1>
+                    <p> {{pin.description}} </p>
+                </article>
+                
+            {% endfor %}
+            {% else %}
+                <p>Sorry, No pins yet</p>
+        {% endif %}
+{% endblock %}
