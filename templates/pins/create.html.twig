@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'layouts/base.html.twig' %}
 
 {% block title 'Nouveau Pin' %}
 
@@ -7,7 +7,7 @@
 		{{ form_start(monForm) }}
 
 			{{ form_widget(monForm)}}
-			<input type="submit" value="Create Pin">
+			<input type="submit" value="Create Pin" formnovalidate>
 
 	{{ form_end(monForm) }}
 {% endblock %}

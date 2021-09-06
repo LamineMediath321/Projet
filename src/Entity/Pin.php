@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PinRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\Timestampable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PinRepository::class)
@@ -23,11 +24,15 @@ class Pin
 
     /**
      * @ORM\Column(type="string", length=255)
+     *@Assert\NotBlank(message="Le titre ne doit pas etre vide")
+     *@Assert\Length(min=3,minMessage="Le titre doit avoir plus de 3 caracteres")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     *@Assert\NotBlank(message="La description ne doit pas etre vide")
+     *@Assert\Length(min=10,minMessage="La description doit avoir plus de 10 caracteres")
      */
     private $description;
 
