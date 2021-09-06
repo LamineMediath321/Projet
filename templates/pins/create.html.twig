@@ -3,11 +3,16 @@
 {% block title 'Nouveau Pin' %}
 
 {% block body %}
-	<h1>Create Pin</h1>
-		{{ form_start(monForm) }}
+	<div class="row">
+		<div class="col-6 mx-auto">
+			<h1>Create Pin</h1>
+				{{ form_start(monForm) }}
 
-			{{ form_widget(monForm)}}
-			<input type="submit" value="Create Pin" formnovalidate>
+					{{ form_widget(monForm)}}
+					<input class="btn btn-primary btn-block " type="submit" value="Create Pin" formnovalidate>
 
-	{{ form_end(monForm) }}
+				{{ form_end(monForm) }}
+		</div>
+	</div>
+	
 {% endblock %}

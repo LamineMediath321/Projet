@@ -5,7 +5,7 @@
 {% block body %}
 	 <h1> {{ pluralize(pins|length,'Pin','Pins') }}</h1>
 
-        <a href="{{path('app_pins_create')}}">Creer un Pin</a>
+     
 
         {% if pins|length > 0 %}
             {% for pin in pins %}
